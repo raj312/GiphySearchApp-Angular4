@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-search',
@@ -7,13 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+  url = environment.apiUrl;
+  key = environment.apiKey;
+  giphies: any[];
+
+
+  constructor(public http: Http) {
+    // this.http = http;
+  }
 
   ngOnInit() {
   }
 
-  performSearch(searchterm) {
-    console.log(`User searched for ${searchterm.value}`);
-  }
+  performSearch(searchterm: HTMLInputElement): void {
+    const apiUrl = this.url + this.key + '&q=' + searchterm.value;
 
+    this.http.get(apiUrl)
+    .subscribe((res: Response) => {
+      this.giphies = res.json().data;
+      console.log(this.giphies);
+    });
+
+  }
 }
