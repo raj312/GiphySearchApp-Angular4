@@ -1,12 +1,8 @@
-<!--search form-->
-<!--<form action="" autocomplete="off" class="form-horizontal" method="post">
-  <div class="input-group">-->
-      <input name="searchtext" class="form-control" type="text" #searchtext>
-        <button type="submit" id="btnSearch" (click)='performSearch(searchtext)'>
-          Search
-        </button>
 
-<!--
-  </div>
-</form>
--->
+<input name="searchtext" class="form-control" type="text" #searchtext>
+  <button type="submit" id="btnSearch" (click)='searchForGiphy(searchtext)'>
+    Search
+  </button>
+<div class="giphyDashboard" *ngIf = "giphies">
+  <app-display-giphy [giphy]=giphies></app-display-giphy>
+</div>

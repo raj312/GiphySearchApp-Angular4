@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { GiphyDataService } from '../giphy-data.service';
 
 @Component({
   selector: 'app-search',
@@ -10,26 +11,28 @@ import { environment } from '../../environments/environment';
 })
 export class SearchComponent implements OnInit {
 
-  url = environment.apiUrl;
-  key = environment.apiKey;
   giphies: any[];
+  giphyDataService: GiphyDataService;
 
-
-  constructor(public http: Http) {
-    // this.http = http;
+  constructor(public http: Http, giphyDataService: GiphyDataService) {
+    this.giphyDataService = giphyDataService;
   }
 
   ngOnInit() {
   }
 
-  performSearch(searchterm: HTMLInputElement): void {
-    const apiUrl = this.url + this.key + '&q=' + searchterm.value;
-
-    this.http.get(apiUrl)
-    .subscribe((res: Response) => {
-      this.giphies = res.json().data;
-      console.log(this.giphies);
+  private searchForGiphy(searchTerm: HTMLInputElement): void {
+    this.giphyDataService.performSearch(searchTerm)
+    .subscribe(res => {
+      this.handleData(res.json());
     });
+  }
+
+  handleData(res) {
+    // console.log(res.data);
+    this.giphies = res.data;
+    console.log(this.giphies);
+  }
 
   }
-}
+
