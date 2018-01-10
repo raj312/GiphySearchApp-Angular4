@@ -1,5 +1,7 @@
-<div class="imageGrid">
-  <div>
-    
+<div class="img_container">
+
+  <div class="giphy_container" *ngFor="let g of giphy">
+      <img src={{g.images.original.url}}>
   </div>
+
 </div>

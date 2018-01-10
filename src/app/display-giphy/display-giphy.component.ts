@@ -12,8 +12,9 @@ export class DisplayGiphyComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('Initialized');
-    console.log('::::' + this.giphy);
+    // console.log('Initialized');
+    // console.log('::::' + this.giphy);
+    // console.log('url:' + this.giphy[0].images.original.url);
   }
 
 }
